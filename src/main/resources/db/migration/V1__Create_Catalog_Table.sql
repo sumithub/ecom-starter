@@ -1,0 +1,5 @@
+CREATE TABLE Catalog (
+    sku  VARCHAR NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    price DECIMAL NOT NULL
+);
