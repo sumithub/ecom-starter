@@ -1,5 +1,7 @@
 package com.cakefactory;
 
+import com.cakefactory.domain.Product;
+import com.cakefactory.service.CatalogService;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import static org.mockito.Mockito.when;
@@ -17,7 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.gargoylesoftware.htmlunit.*;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,22 +37,6 @@ class IndexControllerTest {
 	@MockBean
 	CatalogService catalogService;
 
-	private List<Product> products;
-
-	@BeforeEach
-	public void setup() {
-
-		products = Arrays.asList(
-				new Product("abcr", "All Butter Croissant", 0.75),
-				new Product("ccr", "Chocolate Croissant", 0.95),
-				new Product("b", "Fresh Baguette", 1.60),
-				new Product("rv", "Red Velvet", 3.95),
-				new Product("vs", "Victoria Sponge", 5.45),
-				new Product("cc", "Carrot Cake", 3.45));
-
-		when(catalogService.findAll()).thenReturn(products);
-	}
-
 	@Test
 	@DisplayName("index page returns the landing page")
 	void returnsLandingPage() throws Exception {
@@ -62,14 +48,15 @@ class IndexControllerTest {
 	@Test
 	@DisplayName("index page shows list of catalog items")
 		void index_page_display_catalog_items() throws Exception {
+		final String expectedName = "Carrot Cake";
+		//given
+		when(catalogService.getAllProducts()).thenReturn(Collections.singletonList(new Product("cc", expectedName, 3.45)));
+
+		//when
 		HtmlPage page = this.webClient.getPage("/");
 		List<HtmlDivision> items = page.getByXPath("//div[@class='card-body']");
-		assertThat(items.size() == 6);
-		assertThat(items.get(0).getFirstElementChild().getVisibleText()).isEqualTo(products.get(0).getName());
-		assertThat(items.get(1).getFirstElementChild().getVisibleText()).isEqualTo(products.get(1).getName());
-		assertThat(items.get(2).getFirstElementChild().getVisibleText()).isEqualTo(products.get(2).getName());
-		assertThat(items.get(3).getFirstElementChild().getVisibleText()).isEqualTo(products.get(3).getName());
-		assertThat(items.get(4).getFirstElementChild().getVisibleText()).isEqualTo(products.get(4).getName());
-		assertThat(items.get(5).getFirstElementChild().getVisibleText()).isEqualTo(products.get(5).getName());
+
+		// then
+		assertThat(items.get(0).getFirstElementChild().getVisibleText()).isEqualTo(expectedName);
 	}
 }
