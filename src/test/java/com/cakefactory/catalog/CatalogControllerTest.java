@@ -1,7 +1,5 @@
-package com.cakefactory;
+package com.cakefactory.catalog;
 
-import com.cakefactory.domain.Product;
-import com.cakefactory.service.CatalogService;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import static org.mockito.Mockito.when;
@@ -26,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class IndexControllerTest {
+class CatalogControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
@@ -50,7 +48,7 @@ class IndexControllerTest {
 		void index_page_display_catalog_items() throws Exception {
 		final String expectedName = "Carrot Cake";
 		//given
-		when(catalogService.getAllProducts()).thenReturn(Collections.singletonList(new Product("cc", expectedName, 3.45)));
+		when(catalogService.getAllProducts()).thenReturn(Collections.singletonList(new Product(expectedName, 3.45)));
 
 		//when
 		HtmlPage page = this.webClient.getPage("/");

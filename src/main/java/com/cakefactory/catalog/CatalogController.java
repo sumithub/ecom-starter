@@ -1,7 +1,5 @@
-package com.cakefactory.web;
+package com.cakefactory.catalog;
 
-import com.cakefactory.service.CatalogService;
-import com.cakefactory.domain.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class IndexController {
+public class CatalogController {
 
     private final CatalogService catalogService;
 
-    public IndexController(CatalogService catalogService) {
+    public CatalogController(CatalogService catalogService) {
         this.catalogService = catalogService;
     }
 

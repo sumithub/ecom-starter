@@ -1,6 +1,4 @@
-package com.cakefactory.service;
-
-import com.cakefactory.domain.Product;
+package com.cakefactory.catalog;
 
 public interface CatalogService
 {
