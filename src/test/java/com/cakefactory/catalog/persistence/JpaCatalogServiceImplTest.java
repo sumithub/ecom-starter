@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,8 +18,7 @@ public class JpaCatalogServiceImplTest {
     @Autowired
     CatalogRepository catalogRepository;
 
-    @MockBean
-    JpaCatalogServiceImpl jpaCatalogService;
+    private JpaCatalogServiceImpl jpaCatalogService;
 
     @BeforeEach
     void setup() {
